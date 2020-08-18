@@ -2,7 +2,7 @@
   <div class="login_content">
   <div class="login_box">
   <div class="login_img">
-  <img src="../assets/logo.png" alt="">
+  <img src="~assets/logo.png" alt="">
   </div>
   <el-form ref="loginfromref" :model="loginfrom" :rules="loginrules" class="login_form">
   <el-form-item prop="username">
@@ -27,8 +27,8 @@ export default {
   data() {
       return {
           loginfrom : {
-              username : '',
-              password : ''
+              username : 'admin',
+              password : '123456'
           },
           loginrules : {
               //验证用户名是否合法
@@ -52,9 +52,14 @@ export default {
          if(!validate) return;
         Login(this.loginfrom.username,this.loginfrom.password).then(res=>{
             console.log(res)
-           if(res.meta.status===200) 
-            this.$message.success('登录成功');
-           else  this.$message.error('登录失败');
+           if(res.meta.status===200) {
+                this.$message.success('登录成功') ;
+             window.sessionStorage.setItem('token',res.data.token);
+             this.$router.push('./home')
+           } else  this.$message.error('登录失败');
+           
+          
+         
         })
 
       })
