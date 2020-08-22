@@ -51,15 +51,11 @@ export default {
       this.$refs.loginfromref.validate(validate=>{
          if(!validate) return;
         Login(this.loginfrom.username,this.loginfrom.password).then(res=>{
-            console.log(res)
            if(res.meta.status===200) {
-                this.$message.success('登录成功') ;
+                this.$message.success(res.meta.msg) ;
              window.sessionStorage.setItem('token',res.data.token);
              this.$router.push('./home')
-           } else  this.$message.error('登录失败');
-           
-          
-         
+           } else  this.$message.error(res.meta.msg);
         })
 
       })
