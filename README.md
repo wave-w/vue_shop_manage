@@ -2,6 +2,9 @@
 
 ## Project setup
 ```
+项目源码来自于黑马老师电子商务系统
+```
+```
 npm install
 ```
 
