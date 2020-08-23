@@ -64,3 +64,15 @@ export function  deluser(id){
         }
     })
 }
+export function setuserroles(id,rid){
+    return request({
+        url:'/users/'+id+'/role',
+        method:'PUT',
+        params:{
+            id
+        },
+        data:{
+            rid
+        }
+    })
+}

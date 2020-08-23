@@ -39,7 +39,7 @@
         <el-button type="danger" icon="el-icon-delete"  size="mini" @click="deluser(scope.row.id)"></el-button>
     </el-tooltip>
        <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false">
-          <el-button type="warning" icon="el-icon-setting"  size="mini"></el-button>
+          <el-button type="warning" icon="el-icon-setting"  size="mini" @click="setroles(scope.row)"></el-button>
     </el-tooltip>
         </template>
       </el-table-column>
@@ -61,11 +61,32 @@
         <el-button type="primary" @click="edituserList">确 定</el-button>
       </span>
     </el-dialog>
+    <el-dialog title="分配角色" :visible.sync="setrolesVisible" width="30%" @close="closeroles">
+   <div>
+   <p>用户名：{{setrolesList.username}}</p>
+   <p>当前角色:{{setrolesList.role_name}}</p>
+   <p>分配角色：
+    <el-select v-model="setrolesListID" placeholder="请选择">
+    <el-option
+      v-for="item in rolesList"
+      :key="item.id"
+      :label="item.roleName"
+      :value="item.id">
+    </el-option>
+  </el-select>
+  </p>
+   </div> 
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="setrolesVisible = false">取 消</el-button>
+        <el-button type="primary" @click="pushroles">确 定</el-button>
+      </span>
+    </el-dialog>
 </div>
 </template>
 
 <script>
-import {putuser,edituser,getuser,deluser} from 'network/user';
+import {putuser,edituser,getuser,deluser,setuserroles} from 'network/user';
+import {getroles} from 'network/power';
 export default {
   name: 'UserTable',
   data() {
@@ -91,7 +112,11 @@ export default {
       }
     return {
       editVisible : false,
+      setrolesVisible:false,
+      setrolesList:{},
+      rolesList:[],
       editFrom:{},
+      setrolesListID:'',
        rules: {
           email: [{
               required: true,
@@ -185,6 +210,31 @@ export default {
             message: '已取消删除'
           });          
         });
+      },
+      setroles(userinfo){
+        this.setrolesVisible = true
+        this.setrolesList = userinfo
+        getroles().then(res=>{
+          this.rolesList=res.data
+          })
+      },
+      pushroles(){
+        if(!this.setrolesListID){
+          this.$message.error("请选择要分配的角色")
+        }else {
+          setuserroles(this.setrolesList.id,this.setrolesListID).then(res=>{
+            if(res.meta.status===200){
+              this.$message.success("设置角色成功")
+              this.setrolesVisible=false
+              this.$router.go(0)
+            }else this.$message.error("设置角色失败")
+          })
+        }
+      },
+      closeroles(){
+        this.setrolesListID='',
+        this.setrolesList={},
+        this.rolesList=[]
       }
        },
   

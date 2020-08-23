@@ -1,6 +1,6 @@
 <template>
   <div>
- <user-breadcrumd/>
+ <bread-crumb :breadcrumb="['用户管理','用户列表']"/>
 <el-card>
   <el-row :gutter="30">
    <el-col :span="15">
@@ -51,7 +51,7 @@
 
 <script>
 import { user , adduser,putuser } from 'network/user';
-import UserBreadcrumd from './userchild/UserBreadcrumd'
+import BreadCrumb from 'components/common/BreadCrumb'
 import UserTable from './userchild/UserTable'
 export default {
   name: '',
@@ -110,7 +110,7 @@ export default {
     }
   },
   components:{
-UserBreadcrumd,
+BreadCrumb,
 UserTable
   },
   methods: {
@@ -137,6 +137,8 @@ UserTable
               if(res.meta.status===201){
                   this.$message.success("增加用户成功") ;
                   this.dialogVisible = false
+                  this.$router.go(0);
+                  
               }
           
         }) 
