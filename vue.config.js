@@ -13,11 +13,12 @@ module.exports = {
       },
     devServer:{
            host: '0.0.0.0',
-           public:'192.168.124.4:8080',
+           public:'192.168.124.9:8080',
            port: 8080,
            https: false,
            https: false,
            disableHostCheck:true,
            open: true 
-        }
+        },
+      
 }

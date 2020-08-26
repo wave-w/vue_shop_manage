@@ -7,8 +7,11 @@ import Login from '../views/login.vue'
 import Home from '../views/home/home.vue'
 import Welcome from '../views/home/welcome.vue'
 import user from '../views/users/user.vue'
-import roles from '../views/users/roles.vue'
-import rights from '../views/users/rights.vue'
+import roles from '../views/power/roles.vue'
+import rights from '../views/power/rights.vue'
+import goods from '../views/goods/goods.vue'
+import categories from '../views/goods/categories.vue'
+import params from '../views/goods/params.vue'
   const routes = [
     {
       path:'/',
@@ -26,6 +29,9 @@ import rights from '../views/users/rights.vue'
       {path:'/users',component:user},
       {path:'/roles',component:roles},
       {path:'/rights',component:rights},
+      {path:'/goods',component:goods},
+      {path:'/categories',component:categories},
+      {path:'/params',component:params}
     ]
   }
 ]
