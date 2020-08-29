@@ -12,6 +12,7 @@ import rights from '../views/power/rights.vue'
 import goods from '../views/goods/goods.vue'
 import categories from '../views/goods/categories.vue'
 import params from '../views/goods/params.vue'
+import addpage from '../views/goods/goodChildren/addpage.vue'
   const routes = [
     {
       path:'/',
@@ -31,7 +32,8 @@ import params from '../views/goods/params.vue'
       {path:'/rights',component:rights},
       {path:'/goods',component:goods},
       {path:'/categories',component:categories},
-      {path:'/params',component:params}
+      {path:'/params',component:params},
+      {path:'/goods/addpage',component:addpage}
     ]
   }
 ]

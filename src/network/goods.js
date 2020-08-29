@@ -101,3 +101,41 @@ export function editparams(id,attrid,attr_name,attr_sel,attr_vals){
         }
     })
 }
+
+//goods
+export function getgoods(query,pagenum,pagesize){
+    return request({
+        url:'goods',
+        method:'GET',
+        params:{
+            query,
+            pagenum,
+            pagesize
+        }
+    })
+}
+export function delgoods(id){
+    return request({
+        url:'/goods/'+id,
+        method:'DELETE',
+        params:{
+            id
+        }
+    })
+}
+export function addgoods(goods_name,goods_cat,goods_price,goods_number,goods_weight,goods_introduce,pics,attrs){
+    return request({
+        url:'/goods',
+        method:'POST',
+        data:{
+            goods_name,
+            goods_cat,
+            goods_price,
+            goods_number,
+            goods_weight,
+            goods_introduce,
+            pics,
+            attrs
+        }
+    })
+}

@@ -22,7 +22,8 @@
                                 </el-tag>
                                 <el-input class="input-new-tag" v-if="scope.row.inputVisible" v-model="scope.row.inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm(scope.row)" @blur="blurhandleInputConfirm(scope.row)">
                                 </el-input>
-                                <el-button v-else class="button-new-tag" size="small" @click="showInput(scope.row)">+ New Tag</el-button>
+                                <el-button v-else class="button-new-tag" size="small" @click="showInput(scope.row)">
+                                    + New Tag</el-button>
                             </el-row>
                         </template>
                     </el-table-column>
@@ -51,7 +52,8 @@
                                 </el-tag>
                                 <el-input class="input-new-tag" v-if="scope.row.inputVisible" v-model="scope.row.inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm(scope.row)" @blur="blurhandleInputConfirm(scope.row)">
                                 </el-input>
-                                <el-button v-else class="button-new-tag" size="small" @click="showInput(scope.row)">+ New Tag</el-button>
+                                <el-button v-else class="button-new-tag" size="small" @click="showInput(scope.row)">
+                                    + New Tag</el-button>
                             </el-row>
                         </template>
                     </el-table-column>
