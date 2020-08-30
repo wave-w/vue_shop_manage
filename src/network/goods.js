@@ -123,13 +123,43 @@ export function delgoods(id){
         }
     })
 }
-export function addgoods(goods_name,goods_cat,goods_price,goods_number,goods_weight,goods_introduce,pics,attrs){
+export function addgoods(goods_name,goods_cat,goods_price,goods_number,
+    goods_weight,goods_introduce,pics,attrs){
     return request({
         url:'/goods',
         method:'POST',
         data:{
             goods_name,
             goods_cat,
+            goods_price,
+            goods_number,
+            goods_weight,
+            goods_introduce,
+            pics,
+            attrs
+        }
+    })
+}
+export function searchgoods(id){
+    return request({
+        url:'/goods/'+id,
+        method:'GET',
+        params:{
+            id
+        }
+    })
+}
+export function editgoods(id,goods_cat,goods_name,goods_price,goods_number,goods_weight,
+    goods_introduce,pics,attrs){
+    return request({
+        url:'/goods/'+id,
+        method:'PUT',
+        params:{
+            id
+        },
+        data:{
+            goods_cat,
+            goods_name,
             goods_price,
             goods_number,
             goods_weight,

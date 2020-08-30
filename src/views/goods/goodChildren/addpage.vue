@@ -66,8 +66,10 @@ import BreadCrumb from 'components/common/BreadCrumb'
 import {
     gtecategories,
     getparams,
-    loadimg
+    loadimg,
+    addgoods
 } from 'network/goods';
+import _ from 'lodash'
 export default {
     name: '',
     data() {
@@ -79,13 +81,13 @@ export default {
                 goods_price: 0,
                 goods_weight: 0,
                 goods_number: 0,
-                goods_cat: '',
                 goods_introduce: '',
                 pics: [],
                 attrs: [],
                 goods_cat: [],
                 tagparamsList: [],
                 tagparamsList1: [],
+                goods_cat1: ''
             },
             addprops: {
                 expandTrigger: 'hover',
@@ -192,7 +194,38 @@ export default {
             this.addpageList.pics.push(picinf)
         },
         addpage() {
-
+            this.$refs.addpageFormref.validate(valid => {
+                if (!valid) {
+                    this.$message.error("请填写完商品信息·")
+                } else {
+                    // this.addpageList.goods_cat1 = this.addpageList.goods_cat.join(",")
+                    const List = _.cloneDeep(this.addpageList)
+                    List.goods_cat = List.goods_cat.join(",")
+                    this.addpageList.tagparamsList.forEach(item => {
+                        const newmanyinfo = {
+                            attr_id: item.attr_id,
+                            attr_value: item.attr_vals.join(" ")
+                        }
+                        this.addpageList.attrs.push(newmanyinfo)
+                    })
+                    this.addpageList.tagparamsList1.forEach(item => {
+                        const newonlyinfo = {
+                            attr_id: item.attr_id,
+                            attr_value: item.attr_vals
+                        }
+                        this.addpageList.attrs.push(newonlyinfo)
+                    })
+                    addgoods(this.addpageList.goods_name, List.goods_cat, //this.addpageList.goods_cat1,
+                        this.addpageList.goods_price, this.addpageList.goods_number,
+                        this.addpageList.goods_weight, this.addpageList.goods_introduce,
+                        this.addpageList.pics, this.addpageList.attrs).then(res => {
+                        if (res.meta.status === 201) {
+                            this.$message.success("添加商品成功")
+                            this.$router.push('/goods')
+                        } else this.$message.error("添加商品成功")
+                    })
+                }
+            })
         }
     },
     created() {

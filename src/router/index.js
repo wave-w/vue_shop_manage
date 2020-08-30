@@ -13,6 +13,8 @@ import goods from '../views/goods/goods.vue'
 import categories from '../views/goods/categories.vue'
 import params from '../views/goods/params.vue'
 import addpage from '../views/goods/goodChildren/addpage.vue'
+import orders from '../views/orders/orders.vue'
+import reports from '../views/reports/reports.vue'
   const routes = [
     {
       path:'/',
@@ -33,6 +35,8 @@ import addpage from '../views/goods/goodChildren/addpage.vue'
       {path:'/goods',component:goods},
       {path:'/categories',component:categories},
       {path:'/params',component:params},
+      {path:'/orders',component:orders},
+      {path:'/reports',component:reports},
       {path:'/goods/addpage',component:addpage}
     ]
   }

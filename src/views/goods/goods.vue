@@ -27,8 +27,8 @@
             </el-table-column>
             <el-table-column label="操作" width="180px">
                 <template slot-scope="scope">
-                    <el-button size="mini" type="primary">
-                        <i class="el-icon-edit"></i>编辑
+                    <el-button size="mini" type="primary" @click="toeditgoods(scope.row)">
+                        <i class=" el-icon-edit"></i>编辑
                     </el-button>
                     <el-button size="mini" type="danger" @click="todelgoods(scope.row.goods_id)">
                         <i class="el-icon-delete"></i>删除
@@ -39,6 +39,17 @@
         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="getgoodsinfo.pagenum" :page-sizes="[10, 50, 100, 100,300]" :page-size="getgoodsinfo.pagesize" layout="total, sizes, prev, pager, next, jumper" :total="getgoodsinfo.total" background>
         </el-pagination>
     </el-card>
+    <el-dialog title="收货地址" :visible.sync="editgoodsVisible">
+        <el-form :model="editgoods">
+            <el-form-item label="商品名称">
+                <el-input v-model="editgoods.goods_name"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer">
+            <el-button @click="editgoodsVisible = false">取 消</el-button>
+            <el-button type="primary" @click="editgoodsclick">确 定</el-button>
+        </div>
+    </el-dialog>
 </div>
 </template>
 
@@ -46,7 +57,9 @@
 import BreadCrumb from 'components/common/BreadCrumb'
 import {
     getgoods,
-    delgoods
+    delgoods,
+    searchgoods,
+    editgoods
 } from 'network/goods';
 export default {
     name: 'goods',
@@ -58,9 +71,9 @@ export default {
                 pagesize: 10,
                 total: 0,
             },
-
-            goodsList: []
-
+            editgoodsVisible: false,
+            goodsList: [],
+            editgoods: {}
         }
     },
     components: {
@@ -107,6 +120,23 @@ export default {
         },
         addpage() {
             this.$router.push('/goods/addpage')
+        },
+        toeditgoods(row) {
+            this.editgoodsVisible = true
+            searchgoods(row.goods_id).then(res => {
+                this.editgoods = res.data
+            })
+        },
+        editgoodsclick() {
+            editgoods(this.editgoods.goods_id, this.editgoods.goods_cat, this.editgoods.goods_name,
+                this.editgoods.goods_price, this.editgoods.goods_number, this.editgoods.goods_weight,
+                this.editgoods.goods_introduce, this.editgoods.pics, this.editgoods.attrs).then(res => {
+                if (res.meta.status === 200) {
+                    this.$message.success("修改成功")
+                    this.editgoodsVisible = false
+                    this.togetgoods()
+                } else this.$message.error(res.meta.msg);
+            })
         }
     },
     filters: {
