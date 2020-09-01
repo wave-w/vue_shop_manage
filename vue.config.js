@@ -20,5 +20,9 @@ module.exports = {
            disableHostCheck:true,
            open: true 
         },
+        transpileDependencies: [
+          'vue-echarts',
+          'resize-detector'
+        ]
       
 }

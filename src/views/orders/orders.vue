@@ -30,7 +30,7 @@
             </el-table-column>
             <el-table-column label="操作">
                 <template slot-scope="scope" width="180px">
-                    <el-button size="mini" type="primary" @click="showbox">
+                    <el-button size="mini" type="primary" @click="showbox(scope.row.id)">
                         <i class=" el-icon-edit"></i>
                     </el-button>
                     <el-tooltip effect="dark" content="物流信息" placement="top-start" :enterable="false">
@@ -133,7 +133,7 @@ export default {
             this.getordersinfo.pagenum = newpage
             this.togetorderList()
         },
-        showbox() {
+        showbox(id) {
             this.editordersVisible = true
         },
         handleChange() {
